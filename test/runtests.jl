@@ -28,3 +28,8 @@ tokenizer = wordcut.create_tokenizer(tree)
 
 # latin
 @test wordcut.tokenize(tokenizer, "ขาAbCขา") == ["ขา", "AbC", "ขา"]
+
+###################### read dict ######################
+
+tree = wordcut.read_plain_dict(joinpath(Pkg.dir("wordcut"), "test", "two.txt"))
+@test get(wordcut.lookup(tree, 1, 1, 'ก')) == (1, false, nothing)

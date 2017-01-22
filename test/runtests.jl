@@ -24,5 +24,7 @@ tokenizer = wordcut.create_tokenizer(tree)
 @test wordcut.tokenize(tokenizer, "กากา") == ["กา", "กา"]
 
 # space
-
 @test wordcut.tokenize(tokenizer, "ขา ขา") == ["ขา", " ", "ขา"]
+
+# latin
+@test wordcut.tokenize(tokenizer, "ขาAbCขา") == ["ขา", "AbC", "ขา"]

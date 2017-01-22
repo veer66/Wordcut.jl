@@ -6,6 +6,7 @@ include("edge_building_context.jl")
 include("dict_edge_builder.jl")
 include("pat_edge_builder.jl")
 include("punc_edge_builder.jl")
+include("latin_edge_builder.jl")
 include("unk_edge_builder.jl")
 include("text_range.jl")
 include("build_path.jl")
@@ -16,6 +17,7 @@ end
 
 function create_tokenizer(tree::PrefixTree) ::Tokenizer
     factories = [() -> create_dict_edge_builder(tree),
+                 () -> create_latin_edge_builder(),
                  () -> create_punc_edge_builder(),
                  () -> UnkEdgeBuilder()]
     Tokenizer(factories)

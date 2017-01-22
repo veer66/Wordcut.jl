@@ -11,7 +11,7 @@ function is_unk(edge::Edge)
     edge.edge_type == unk
 end
 
-function is_better_than(a::Edge, b::Edge)::bool
+function is_better_than(a::Edge, b::Edge) :: Bool
     if a.unk < b.unk
         return true
     end

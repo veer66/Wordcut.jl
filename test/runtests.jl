@@ -28,5 +28,6 @@ using Test
 
     dix = Wordcut.make_prefix_tree([("กา", Int32(10)), ("กาม", Int32(20))])
     @test Wordcut.tokenize(dix, "กากา") == ["กา", "กา"]
-    @test Wordcut.tokenize(dix, "กากา", "|") == "กา|กา" 
+    @test Wordcut.tokenize(dix, "กากา", "|") == "กา|กา"
+    @test length(Wordcut.tokenize(dix, "ประเทศมองโกเลียใน ค.ศ. 1927")) > 0
 end

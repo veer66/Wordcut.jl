@@ -89,14 +89,14 @@ function update(t::LatinTransducer, ch::Char, ch_i::Int64, i::Int64, s::String)
         if islatin(ch)
             t.s = i
             t.state = activated
-            if ch_i == length(s) || !islatin(s[nextind(ch_i)])
+            if ch_i == length(s) || !islatin(s[nextind(s, ch_i)])
                 t.e = i
                 t.state = completed
             end
         end
     else
         if islatin(ch)
-            if ch_i == length(s) || !islatin(s[nextind(ch_i)])
+            if ch_i == length(s) || !islatin(s[nextind(s, ch_i)])
                 t.e = i
                 t.state = completed
             end
@@ -118,14 +118,14 @@ function update(t::PuncTransducer, ch::Char, ch_i::Int64, i::Int64, s::String)
         if ch == ' '
             t.s = i
             t.state = activated
-            if length(s) == ch_i || s[nextind(ch_i)] != " "
+            if length(s) == ch_i || s[nextind(s,ch_i)] != " "
                 t.e = i
                 t.state = completed
             end            
         end
     else
         if ch == ' '
-            if length(s) == ch_i || s[nextind(ch_i)] != " "
+            if length(s) == ch_i || s[nextind(s,ch_i)] != " "
                 t.e = i
                 t.state = completed
             end

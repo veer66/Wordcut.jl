@@ -84,19 +84,19 @@ end
     return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')
 end
 
-function update(t::LatinTransducer, ch::Char, i::Int64, s::String)
+function update(t::LatinTransducer, ch::Char, ch_i::Int64, i::Int64, s::String)
     if t.state == waiting
         if islatin(ch)
             t.s = i
             t.state = activated
-            if i == length(s) || !islatin(s[i + 1])
+            if ch_i == length(s) || !islatin(s[nextind(ch_i)])
                 t.e = i
                 t.state = completed
             end
         end
     else
         if islatin(ch)
-            if i == length(s) || !islatin(s[i + 1])
+            if ch_i == length(s) || !islatin(s[nextind(ch_i)])
                 t.e = i
                 t.state = completed
             end
@@ -113,19 +113,19 @@ mutable struct PuncTransducer
     link_kind::LinkKind
 end
 
-function update(t::PuncTransducer, ch::Char, i::Int64, s::String)
+function update(t::PuncTransducer, ch::Char, ch_i::Int64, i::Int64, s::String)
     if t.state == waiting
         if ch == ' '
             t.s = i
             t.state = activated
-            if length(s) == i || s[i + 1] != " "
+            if length(s) == ch_i || s[nextind(ch_i)] != " "
                 t.e = i
                 t.state = completed
             end            
         end
     else
         if ch == ' '
-            if length(s) == i || s[i + 1] != " "
+            if length(s) == ch_i || s[nextind(ch_i)] != " "
                 t.e = i
                 t.state = completed
             end
@@ -180,7 +180,7 @@ function build_path(dix::PrefixTree{Int32}, s::String)::Array{Link}
             end
         end
         for transducer in transducers
-            update(transducer, ch, i, s)
+            update(transducer, ch, ch_i, i, s)
             if transducer.state == completed
                 prev_link = path[transducer.s]
                 new_link = Link(transducer.s, prev_link.w + 1, prev_link.unk, transducer.link_kind, ch_i)

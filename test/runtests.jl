@@ -30,4 +30,5 @@ using Test
     @test Wordcut.tokenize(dix, "กากา") == ["กา", "กา"]
     @test Wordcut.tokenize(dix, "กากา", "|") == "กา|กา"
     @test length(Wordcut.tokenize(dix, "ประเทศมองโกเลียใน ค.ศ. 1927")) > 0
+    @test length(Wordcut.tokenize(dix, "ธงประจำรัฐ ตราสัญลักษณ์ประจำรัฐ คำขวัญ: Splendor sine occasu")) > 0
 end

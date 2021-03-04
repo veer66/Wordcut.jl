@@ -147,8 +147,8 @@ function build_path(dix::PrefixTree{Int32}, s::String)::Array{Link}
     path::Array{Link} = [Link(1,0,0,init,0)]
     dix_ptrs::Array{DixPtr} = []
     i = 1
-    for ch_i in eachindex(s)
-        ch = s[ch_i]
+    ch_i = 1
+    for ch in s
         unk_link = path[left_boundary]
         link::Link = Link(left_boundary, unk_link.w + 1, unk_link.unk + 1, unk, ch_i)
         push!(dix_ptrs, DixPtr(i, 1, false))
@@ -191,6 +191,7 @@ function build_path(dix::PrefixTree{Int32}, s::String)::Array{Link}
         end
         push!(path, link)
         i += 1
+        ch_i = nextind(s, ch_i)
     end
     return path
 end

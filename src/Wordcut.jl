@@ -235,6 +235,10 @@ function tokenize(dix::PrefixTree{Int32}, str::String)::Array{String}
     return ranges_to_toks(ranges, str)
 end
 
+function tokenize(dix::PrefixTree{Int32}, str::String, delim::String)::String
+    return join(tokenize(dix,str), delim)
+end
+
 #dix1 = Wordcut.make_prefix_tree([("กา", Int32(10)), ("กาม", Int32(20))])
 #s1 = "กากา"
 #println(tokenize(dix1, s1))

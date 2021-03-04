@@ -22,5 +22,11 @@ wget https://raw.githubusercontent.com/veer66/chamkho/master/data/thai.txt -o th
 import Wordcut
 dix = Wordcut.make_prefix_tree(map(w -> (w,Int32(1)), eachline(open("thai.txt"))))
 Wordcut.tokenize(dix, "กากกา")
+````
 
+### Alternative
+````julia
+import Wordcut
+dix = Wordcut.make_prefix_tree(map(w -> (w,Int32(1)), eachline(open("thai.txt"))))
+Wordcut.tokenize(dix, "กากกา", "|")
 ````
